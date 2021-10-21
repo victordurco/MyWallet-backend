@@ -1,6 +1,6 @@
-import connection from "../database/database.js";
-import { signUpSchema } from "../validations/signUp.js";
 import bcrypt from "bcrypt";
+import { signUpSchema } from "../validations/signUp.js";
+import connection from "../database/database.js";
 
 const registerUser = async (req, res) => {
     const userData = req.body;
