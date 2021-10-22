@@ -34,7 +34,11 @@ const loginUser = async (req, res) => {
                 [user.id, token]
             );
 
-            res.send(token);
+            const userInfo = {
+                name: user.name,
+                token: token,
+            };
+            res.send(userInfo);
         } else {
             res.sendStatus(404);
         }
