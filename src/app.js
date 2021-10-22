@@ -3,7 +3,7 @@ import cors from "cors";
 
 import { registerUser } from "./controllers/sign-up.js";
 import { loginUser } from "./controllers/sign-in.js";
-import {  postNewRegister } from "./controllers/registers.js";
+import {  postNewRegister, getUserRegisters } from "./controllers/registers.js";
 
 
 const app = express();
@@ -15,5 +15,7 @@ app.post("/sign-up", registerUser);
 app.post("/sign-in", loginUser);
 
 app.post("/registers", postNewRegister);
+
+app.get("/registers", getUserRegisters);
 
 app.listen(4000); // start server
