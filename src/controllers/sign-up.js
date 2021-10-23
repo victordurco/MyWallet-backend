@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
-import { signUpSchema } from "../validations/signUp.js";
+import { signUpSchema, emailAlrearyExist } from "../validations/signUp.js";
 import connection from "../database/database.js";
+
 
 const registerUser = async (req, res) => {
     const userData = req.body;
@@ -11,7 +12,12 @@ const registerUser = async (req, res) => {
         return res.sendStatus(400);
     }
 
+
     try {
+        if(await emailAlrearyExist(email)){
+            return res.sendStatus(409);
+        } 
+
         const passwordHash = bcrypt.hashSync(password, 10);
 
         await connection.query(

@@ -4,7 +4,7 @@ const { Pool } = pg;
 
 const connection = new Pool({
     user: "postgres",
-    password: "012345",
+    password: "123456",
     host: "localhost",
     port: 5432,
     database: "mywallet",

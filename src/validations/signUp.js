@@ -1,4 +1,5 @@
 import joi from "joi";
+import connection from "../database/database.js";
 
 const signUpSchema = joi.object({
     name: joi.string().min(3).required(),
@@ -6,4 +7,16 @@ const signUpSchema = joi.object({
     password: joi.string().min(6).required(),
 });
 
-export { signUpSchema };
+const emailAlrearyExist = async (email) => {
+    const result = await connection.query(`
+        SELECT * FROM users WHERE users.email = $1
+    `, [email]);
+    
+    if(result.rowCount === 0) return false;
+    else return true;
+};
+
+export { 
+    signUpSchema,
+    emailAlrearyExist
+};

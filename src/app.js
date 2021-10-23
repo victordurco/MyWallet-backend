@@ -18,4 +18,4 @@ app.post("/registers", postNewRegister);
 
 app.get("/registers", getUserRegisters);
 
-app.listen(4000); // start server
+export default app;
