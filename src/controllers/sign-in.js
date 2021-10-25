@@ -23,7 +23,9 @@ const loginUser = async (req, res) => {
 
         const user = result.rows[0];
 
-        if (user && bcrypt.compareSync(password, user.password)) {
+        if(!user) return res.sendStatus(404);
+
+        if (bcrypt.compareSync(password, user.password)) {
             const token = uuid();
 
             await connection.query(
@@ -40,7 +42,7 @@ const loginUser = async (req, res) => {
             };
             res.send(userInfo);
         } else {
-            res.sendStatus(404);
+            res.sendStatus(401);
         }
     } catch (e) {
         console.log(e);
