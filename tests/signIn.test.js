@@ -71,5 +71,9 @@ describe("POST /sign-in", () => {
 		const status = result.statusCode;
 
 		expect(status).toEqual(200);
+		expect(result.body).toEqual({
+			name: expect.any(String),
+			token: expect.any(String)
+		});
 	});
 });
