@@ -6,7 +6,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "NODE_ENV=dev nodemon ./src/server.js",
+    "start:test": "NODE_ENV=test node ./src/server.js",
+    "test": "NODE_ENV=test npx jest",
+    "test:watch": "NODE_ENV=test npx jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -18,9 +21,11 @@
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dayjs": "^1.10.7",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jest": "^27.3.1",
     "joi": "^17.4.2",
+    "nodemon": "^2.0.15",
     "pg": "^8.7.1",
     "supertest": "^6.1.6",
     "uuid": "^8.3.2"
