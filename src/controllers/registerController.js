@@ -13,11 +13,11 @@ const postNewRegister = async (req, res) => {
     const { error } = postRegisterSchema.validate(entryData);
     if (error) return res.status(400).send(error);
 
-    const formatedValue = registerService.formatValue(value);
-    if (valueIsValid.validate({ value: formatedValue }).error)
-        return res.sendStatus(400);
-
     try {
+        const formatedValue = registerService.formatValue(value);
+        if (valueIsValid.validate({ value: formatedValue }).error)
+            return res.sendStatus(400);
+
         const createdNewRegister = await registerService.postNewRegister({
             value,
             description,
@@ -42,31 +42,9 @@ const getUserRegisters = async (req, res) => {
     if (!token) return res.sendStatus(401);
 
     try {
-        const result = await connection.query(
-            `
-            SELECT * FROM sessions
-            JOIN users
-                ON sessions."userId" = users.id
-            WHERE sessions.token = $1
-            `,
-            [token]
-        );
-
-        const user = result.rows[0];
-
-        if (user) {
-            const registers = await connection.query(
-                `
-                SELECT registers.*, "registersTypes".type AS "typeName"
-                 FROM registers
-                 JOIN "registersTypes"
-                    ON registers."typeId" = "registersTypes".id
-                WHERE registers."userId" = $1
-            `,
-                [user.userId]
-            );
-
-            res.status(200).send(registers.rows);
+        const registers = await registerService.getRegistersByUserToken(token);
+        if (registers) {
+            res.status(200).send(registers);
         } else {
             res.sendStatus(401);
         }

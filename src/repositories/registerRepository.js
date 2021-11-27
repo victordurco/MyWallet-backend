@@ -16,4 +16,18 @@ const createRegister = async ({
     );
 };
 
-export { createRegister };
+const getRegisters = async (id) => {
+    const result = await connection.query(
+        `
+          SELECT registers.*, "registersTypes".type AS "typeName"
+          FROM registers
+           JOIN "registersTypes"
+              ON registers."typeId" = "registersTypes".id
+          WHERE registers."userId" = $1
+         `,
+        [id]
+    );
+    return result.rows;
+};
+
+export { createRegister, getRegisters };

@@ -28,4 +28,15 @@ const postNewRegister = async ({ formatedValue, description, type, token }) => {
     }
 };
 
-export { formatValue, postNewRegister };
+const getRegistersByUserToken = async (token) => {
+    const user = await userRepository.getUserByToken(token);
+
+    if (user) {
+        const registers = registerRepository.getRegisters(user.id);
+        return registers;
+    } else {
+        false;
+    }
+};
+
+export { formatValue, postNewRegister, getRegistersByUserToken };
