@@ -1,12 +1,12 @@
 import connection from "../database/database.js";
 
-const checkIfEmailExists = async (email) => {
+const getUserByEmail = async (email) => {
     const result = await connection.query(`
         SELECT * FROM users WHERE users.email = $1
     `, [email]);
     
     if(result.rowCount === 0) return false;
-    else return true;
+    else return result.rows[0];
 };
 
 const createUser = async ({name, email, passwordHash}) => {
@@ -20,7 +20,18 @@ const createUser = async ({name, email, passwordHash}) => {
     ));
 };
 
+const createSession = async ({id, token}) => {
+   return await connection.query(
+        `
+        INSERT INTO sessions ("userId", token)
+        VALUES ($1, $2)
+        `,
+        [id, token]
+    );
+};
+
 export {
-    checkIfEmailExists,
-    createUser
+    getUserByEmail,
+    createUser,
+    createSession
 };
