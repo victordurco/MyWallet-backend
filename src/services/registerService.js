@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import * as registerRepository from "../repositories/registerRepository.js";
+import * as userRepository from "../repositories/userRepository.js";
 
 const formatValue = (value) => {
     let formatedValue = value.replace(",", "");

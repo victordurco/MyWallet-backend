@@ -19,7 +19,7 @@ const postNewRegister = async (req, res) => {
             return res.sendStatus(400);
 
         const createdNewRegister = await registerService.postNewRegister({
-            value,
+            formatedValue,
             description,
             type,
             token,
