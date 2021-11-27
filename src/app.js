@@ -2,7 +2,10 @@ import express from "express";
 import cors from "cors";
 
 import * as userController from "./controllers/userController.js";
-import { postNewRegister, getUserRegisters } from "./controllers/registers.js";
+import {
+    postNewRegister,
+    getUserRegisters,
+} from "./controllers/registerController.js";
 
 const app = express();
 app.use(express.json());

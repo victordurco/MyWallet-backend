@@ -43,4 +43,24 @@ const deleteSession = async (token) => {
     );
 };
 
-export { getUserByEmail, createUser, createSession, deleteSession };
+const getUserByToken = async (token) => {
+    const result = await connection.query(
+        `
+            SELECT * FROM sessions
+            JOIN users
+            ON sessions."userId" = users.id
+            WHERE sessions.token = $1
+            `,
+        [token]
+    );
+    if (result.rowCount === 0) return false;
+    else return result.rows[0];
+};
+
+export {
+    getUserByEmail,
+    getUserByToken,
+    createUser,
+    createSession,
+    deleteSession,
+};

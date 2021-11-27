@@ -21,7 +21,7 @@ const registerUser = async (req, res) => {
 
         res.sendStatus(201);
     } catch (e) {
-        console.log(e);
+        console.error(e);
         res.sendStatus(500);
     }
 };
@@ -39,7 +39,6 @@ const loginUser = async (req, res) => {
         const user = await userService.findUserByEmail(email);
 
         if (!user) return res.sendStatus(404);
-        console.log(user);
         const createdSession = await userService.autenthicateLogin({
             user,
             password,
@@ -65,7 +64,7 @@ const logoutUser = async (req, res) => {
         await userService.logoutUser(token);
         res.sendStatus(200);
     } catch (e) {
-        console.log(e);
+        console.error(e);
         res.sendStatus(500);
     }
 };
