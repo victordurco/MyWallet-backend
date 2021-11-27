@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 
 import * as userController from "./controllers/userController.js";
-import { logoutUser } from "./controllers/sign-out.js";
 import { postNewRegister, getUserRegisters } from "./controllers/registers.js";
 
 const app = express();
@@ -17,6 +16,6 @@ app.post("/registers", postNewRegister);
 
 app.get("/registers", getUserRegisters);
 
-app.post("/sign-out", logoutUser);
+app.post("/sign-out", userController.logoutUser);
 
 export default app;

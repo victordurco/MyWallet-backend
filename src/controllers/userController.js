@@ -40,7 +40,7 @@ const loginUser = async (req, res) => {
 
         if (!user) return res.sendStatus(404);
         console.log(user);
-        const createdSession = await userService.autenthicate({
+        const createdSession = await userService.autenthicateLogin({
             user,
             password,
         });
@@ -55,4 +55,19 @@ const loginUser = async (req, res) => {
     }
 };
 
-export { registerUser, loginUser };
+const logoutUser = async (req, res) => {
+    const authorization = req.headers["authorization"];
+    const token = authorization?.replace("Bearer ", "");
+
+    if (!token) return res.sendStatus(401);
+
+    try {
+        await userService.logoutUser(token);
+        res.sendStatus(200);
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+};
+
+export { registerUser, loginUser, logoutUser };

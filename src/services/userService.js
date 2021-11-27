@@ -19,7 +19,7 @@ const findUserByEmail = async (email) => {
     return user;
 };
 
-const autenthicate = async ({ user, password }) => {
+const autenthicateLogin = async ({ user, password }) => {
     const id = user.id;
     if (bcrypt.compareSync(password, user.password)) {
         const token = uuid();
@@ -33,4 +33,8 @@ const autenthicate = async ({ user, password }) => {
     }
 };
 
-export { createUser, findUserByEmail, autenthicate };
+const logoutUser = async (token) => {
+    return await userRepository.deleteSession(token);
+};
+
+export { createUser, findUserByEmail, autenthicateLogin, logoutUser };
