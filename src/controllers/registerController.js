@@ -1,4 +1,3 @@
-import connection from "../database/database.js";
 import { postRegisterSchema, valueIsValid } from "../validations/registers.js";
 import * as registerService from "../services/registerService.js";
 
