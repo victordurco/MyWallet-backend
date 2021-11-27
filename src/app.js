@@ -1,24 +1,21 @@
 import express from "express";
 import cors from "cors";
 
-import { registerUser } from "./controllers/sign-up.js";
-import { loginUser } from "./controllers/sign-in.js";
-import { logoutUser } from "./controllers/sign-out.js";
-import {  postNewRegister, getUserRegisters } from "./controllers/registers.js";
-
+import * as userController from "./controllers/userController.js";
+import * as registerController from "./controllers/registerController.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.post("/sign-up", registerUser);
+app.post("/sign-up", userController.registerUser);
 
-app.post("/sign-in", loginUser);
+app.post("/sign-in", userController.loginUser);
 
-app.post("/registers", postNewRegister);
+app.post("/registers", registerController.postNewRegister);
 
-app.get("/registers", getUserRegisters);
+app.get("/registers", registerController.getUserRegisters);
 
-app.post("/sign-out", logoutUser);
+app.post("/sign-out", userController.logoutUser);
 
 export default app;
