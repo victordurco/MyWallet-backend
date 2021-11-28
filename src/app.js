@@ -18,4 +18,5 @@ app.get("/registers", registerController.getUserRegisters);
 
 app.post("/sign-out", userController.logoutUser);
 
+
 export default app;
