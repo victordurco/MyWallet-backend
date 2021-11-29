@@ -55,10 +55,8 @@ const loginUser = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-    const authorization = req.headers["authorization"];
-    const token = authorization?.replace("Bearer ", "");
-
-    if (!token) return res.sendStatus(401);
+    const { authorization } = req.headers;
+    const token = authorization?.split("Bearer ")[1];
 
     try {
         await userService.logoutUser(token);

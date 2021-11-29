@@ -31,4 +31,13 @@ const getRegisters = async (id) => {
     return result.rows;
 };
 
-export { createRegister, getRegisters };
+const deleteRegister = async (id) => {
+    return await connection.query(
+        `
+        DELETE FROM registers WHERE registers.id = $1;
+    `,
+        [id]
+    );
+};
+
+export { createRegister, getRegisters, deleteRegister };

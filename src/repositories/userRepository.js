@@ -57,10 +57,21 @@ const getUserByToken = async (token) => {
     else return result.rows[0];
 };
 
+const getSessionByToken = async (token) => {
+    const sessionQuery = await connection.query(
+        "SELECT * FROM sessions WHERE token = $1",
+        [token]
+    );
+
+    if (sessionQuery.rowCount === 0) return false;
+    else return sessionQuery.rows[0];
+};
+
 export {
     getUserByEmail,
     getUserByToken,
     createUser,
     createSession,
     deleteSession,
+    getSessionByToken,
 };
