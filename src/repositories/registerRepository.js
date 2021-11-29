@@ -24,6 +24,7 @@ const getRegisters = async (id) => {
            JOIN "registersTypes"
               ON registers."typeId" = "registersTypes".id
           WHERE registers."userId" = $1
+          ORDER BY registers.id;
          `,
         [id]
     );
