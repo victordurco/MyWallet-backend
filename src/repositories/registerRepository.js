@@ -24,10 +24,20 @@ const getRegisters = async (id) => {
            JOIN "registersTypes"
               ON registers."typeId" = "registersTypes".id
           WHERE registers."userId" = $1
+          ORDER BY registers.id;
          `,
         [id]
     );
     return result.rows;
 };
 
-export { createRegister, getRegisters };
+const deleteRegister = async (id) => {
+    return await connection.query(
+        `
+        DELETE FROM registers WHERE registers.id = $1;
+    `,
+        [id]
+    );
+};
+
+export { createRegister, getRegisters, deleteRegister };

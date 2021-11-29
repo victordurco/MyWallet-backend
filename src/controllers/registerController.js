@@ -4,10 +4,8 @@ import * as registerService from "../services/registerService.js";
 const postNewRegister = async (req, res) => {
     const entryData = req.body;
     const { value, description, type } = req.body;
-    const authorization = req.headers["authorization"];
-    const token = authorization?.replace("Bearer ", "");
-
-    if (!token) return res.sendStatus(401);
+    const { authorization } = req.headers;
+    const token = authorization?.split("Bearer ")[1];
 
     const { error } = postRegisterSchema.validate(entryData);
     if (error) return res.status(400).send(error);
@@ -34,11 +32,20 @@ const postNewRegister = async (req, res) => {
     }
 };
 
-const getUserRegisters = async (req, res) => {
-    const authorization = req.headers["authorization"];
-    const token = authorization?.replace("Bearer ", "");
+const deleteRegister = async (req, res) => {
+    const { id } = req.body;
 
-    if (!token) return res.sendStatus(401);
+    try {
+        await registerService.deleteRegister(id);
+        res.sendStatus(204);
+    } catch (e) {
+        res.sendStatus(500);
+    }
+};
+
+const getUserRegisters = async (req, res) => {
+    const { authorization } = req.headers;
+    const token = authorization?.split("Bearer ")[1];
 
     try {
         const registers = await registerService.getRegistersByUserToken(token);
@@ -53,4 +60,4 @@ const getUserRegisters = async (req, res) => {
     }
 };
 
-export { postNewRegister, getUserRegisters };
+export { postNewRegister, getUserRegisters, deleteRegister };

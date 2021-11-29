@@ -40,4 +40,13 @@ const getRegistersByUserToken = async (token) => {
     }
 };
 
-export { formatValue, postNewRegister, getRegistersByUserToken };
+const deleteRegister = async (id) => {
+    return await registerRepository.deleteRegister(id);
+};
+
+export {
+    formatValue,
+    postNewRegister,
+    getRegistersByUserToken,
+    deleteRegister,
+};

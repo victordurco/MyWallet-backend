@@ -37,4 +37,14 @@ const logoutUser = async (token) => {
     return await userRepository.deleteSession(token);
 };
 
-export { createUser, findUserByEmail, autenthicateLogin, logoutUser };
+const getSessionByToken = async (token) => {
+    return await userRepository.getSessionByToken(token);
+};
+
+export {
+    createUser,
+    findUserByEmail,
+    autenthicateLogin,
+    logoutUser,
+    getSessionByToken,
+};
